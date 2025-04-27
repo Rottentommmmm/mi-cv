@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilustraciones</title>
+  <style>
+    :root {
+      --primary-color: #870903; /* Color principal */
+      --secondary-color: #E90C00; /* Color secundario */
+      --background-color: #F9DD9C; /* Fondo */
+      --accent-color: #418B24; /* Color de acento */
+      --text-color: #000000; /* Texto */
+      --white: #FFFFFF; /* Blanco */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: var(--white);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background: var(--primary-color);
+      color: var(--white);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 16px;
+      margin: 5px 0 0;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 500px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      background: var(--white);
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.8s ease;
+      height: 100%;
+    }
+
+    .carousel img {
+      width: auto; /* Maintain aspect ratio */
+      height: 100%; /* Fit the height of the container */
+      object-fit: contain; /* Ensure the entire image is visible */
+      flex-shrink: 0;
+      cursor: pointer;
+      padding: 10px; /* Adds spacing around the images */
+      background-color: var(--background-color); /* Adds a background color to fill empty space */
+    }
+
+    /* Fullscreen modal */
+    .fullscreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .fullscreen img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .fullscreen .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 40px;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .carousel-container {
+        height: 300px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .header p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Ilustraciones</h1>
+    <p>Galería de mis dibujos favoritos</p>
+  </div>
+
+  <section class="carousel-container">
+    <div class="carousel" id="carousel">
+      <img src="images/Tentación (2).png" alt="Tentación" onclick="openFullscreen(this)">
+      <img src="images/latetona (1).png" alt="Latetona" onclick="openFullscreen(this)">
+      <img src="images/148 sin título (1) (1).png" alt="148 sin título" onclick="openFullscreen(this)">
+      <img src="images/192 sin título (1).png" alt="192 sin título" onclick="openFullscreen(this)">
+      <img src="images/61 sin título.png" alt="61 sin título" onclick="openFullscreen(this)">
+      <img src="images/205 sin título (1).png" alt="205 sin título" onclick="openFullscreen(this)">
+      <img src="images/2023/2023-20250331T033344Z-001/2023/10 sin título (2).png" alt="10 sin título" onclick="openFullscreen(this)"> 
+      <img src="images/2023/2023-20250331T033344Z-001/2023/474 sin título_20230331124521.png" alt="474 sin título" onclick="openFullscreen(this)">
+      <img src="images/2022/2022-20250331T033342Z-001/2022/380 sin título.png" alt="380 sin título" onclick="openFullscreen(this)">
+      <img src="images/2022/2022-20250331T033342Z-001/2022/461 sin título.png" alt="461 sin título" onclick="openFullscreen(this)"> 
+    </div>
+  </section>
+
+  <!-- Fullscreen Modal -->
+  <div class="fullscreen" id="fullscreen">
+    <span class="close" onclick="closeFullscreen()">&times;</span>
+    <img id="fullscreen-img" src="" alt="Imagen Completa">
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById('carousel');
+  const images = carousel.querySelectorAll('img');
+  let index = 0;
+
+  function updateCarousel() {
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function nextImage() {
+    index = (index + 1) % images.length;
+    updateCarousel();
+  }
+
+  // Fullscreen modal
+  function openFullscreen(img) {
+    const fullscreen = document.getElementById('fullscreen');
+    const fullscreenImg = document.getElementById('fullscreen-img');
+    fullscreenImg.src = img.src;
+    fullscreen.style.display = 'flex';
+  }
+
+  function closeFullscreen() {
+    const fullscreen = document.getElementById('fullscreen');
+    fullscreen.style.display = 'none';
+  }
+
+  // Auto-play carousel
+  setInterval(() => {
+    nextImage();
+  }, 4000); // Cambia cada 4 segundos
+</script>
+
+</body>
+</html>

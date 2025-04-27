@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotografía</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #870903; /* Color principal */
+      --secondary-color: #E90C00; /* Color secundario */
+      --background-color: #F9DD9C; /* Fondo */
+      --accent-color: #418B24; /* Color de acento */
+      --text-color: #000000; /* Texto */
+      --white: #FFFFFF; /* Blanco */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: var(--white);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background: var(--primary-color);
+      color: var(--white);
+      border-radius: 15px 15px 0 0;
+      animation: slideIn 1s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 16px;
+      margin: 5px 0 0;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 500px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      background: var(--white);
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.8s ease;
+      height: 100%;
+    }
+
+    .carousel img {
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+      flex-shrink: 0;
+      cursor: pointer;
+      padding: 10px;
+      background-color: var(--background-color);
+    }
+
+    /* Fullscreen modal */
+    .fullscreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .fullscreen img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .fullscreen .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 40px;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .carousel-container {
+        height: 300px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .header p {
+        font-size: 14px;
+      }
+
+      .carousel img {
+        padding: 5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .header p {
+        font-size: 12px;
+      }
+
+      .carousel-container {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Fotografía</h1>
+    <p>Galería de mis mejores fotografías</p>
+  </div>
+
+  <section class="carousel-container">
+    <div class="carousel" id="carousel">
+      <img src="images/fotos/CRT_1.5''.png" alt="CRT_1.5" onclick="openFullscreen(this)">
+      <img src="images/fotos/CRT_10s.png" alt="CRT_10s" onclick="openFullscreen(this)">
+      <img src="images/fotos/CRT_500s.png" alt="CRT_500s" onclick="openFullscreen(this)">
+      <img src="images/fotos/fotofotosegundaparte.png" alt="Foto Segunda Parte" onclick="openFullscreen(this)">
+      <img src="images/fotos/fotofoto.png" alt="Foto Foto" onclick="openFullscreen(this)">
+      <img src="images/fotos/holandessssss.png" alt="Holandés" onclick="openFullscreen(this)">
+      <img src="images/fotos/normal.png" alt="Normal" onclick="openFullscreen(this)">
+    </div>
+  </section>
+
+  <!-- Fullscreen Modal -->
+  <div class="fullscreen" id="fullscreen">
+    <span class="close" onclick="closeFullscreen()">&times;</span>
+    <img id="fullscreen-img" src="" alt="Imagen Completa">
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById('carousel');
+  const images = carousel.querySelectorAll('img');
+  let index = 0;
+
+  function updateCarousel() {
+    carousel.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function nextImage() {
+    index = (index + 1) % images.length;
+    updateCarousel();
+  }
+
+  // Fullscreen modal
+  function openFullscreen(img) {
+    const fullscreen = document.getElementById('fullscreen');
+    const fullscreenImg = document.getElementById('fullscreen-img');
+    fullscreenImg.src = img.src;
+    fullscreen.style.display = 'flex';
+  }
+
+  function closeFullscreen() {
+    const fullscreen = document.getElementById('fullscreen');
+    fullscreen.style.display = 'none';
+  }
+
+  // Auto-play carousel
+  setInterval(() => {
+    nextImage();
+  }, 4000); // Cambia cada 4 segundos
+</script>
+
+</body>
+</html>

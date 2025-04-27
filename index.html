@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio CV</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white; /* Background is white */
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .tomato-img {
+            width: 300px;
+            transition: opacity 0.3s, content 0.3s;
+        }
+        .entrada-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #4B5320; /* Military green text */
+            background: red; /* Red background */
+            border: none; /* Removed border */
+            border-radius: 0; /* Square button */
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            transition: all 0.3s ease; /* Smooth hover and click effects */
+        }
+        .entrada-btn:hover {
+            background: darkred; /* Darker red on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Slightly larger shadow */
+        }
+        .entrada-btn:active {
+            transform: scale(0.95); /* Shrink slightly on click */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
+        }
+    </style>
+    <script>
+        function playSound() {
+            const audio = document.getElementById('page-sound');
+            audio.play();
+        }
+
+        function goToPagina() {
+            // Change the image to a "partido tomate"
+            const tomatoImage = document.getElementById('tomato');
+            tomatoImage.src = 'images/tomatepartio.jpg';
+
+            // Navigate to pagina.html after a short delay
+            setTimeout(() => {
+                window.location.href = 'pagina.html';
+            }, 500); // 500ms delay to allow the image change to be visible
+        }
+
+        // Play the sound when the page loads
+        window.onload = playSound;
+    </script>
+</head>
+<body>
+    <audio id="page-sound" src="https://www.youtube.com/embed/ageDTnXbWEI?autoplay=1" type="audio/mpeg"></audio>
+    <div class="container">
+        <!-- Tomato image -->
+        <img src="images/tomato.jpg" alt="Tomate Entero" class="tomato-img" id="tomato">
+        <!-- Button under the image -->
+        <button class="entrada-btn" onclick="goToPagina()">Enter</button>
+    </div>
+</body>
+</html>
